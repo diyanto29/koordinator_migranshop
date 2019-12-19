@@ -38,32 +38,32 @@ class _LoginState extends State<Login> {
           child: Stack(
             children: <Widget>[
               Positioned(
-                  top: 50,
-                  left: 20,
+                  top: ScreenUtil.instance.setHeight(100),
+                  left: ScreenUtil.instance.setHeight(40),
                   child: Image.asset(
                     "assets/gambar/logo_migran.png",
                     width: 80,
                     height: 60,
                   )),
               Positioned(
-                  top: 120,
-                  left: 20,
+                  top: ScreenUtil.instance.setHeight(240),
+                  left: ScreenUtil.instance.setHeight(40),
                   child: AutoSizeText(
                     "Selamat Datang",
                     style: TextStyle(fontSize: 30, fontFamily: "MalgunBold"),
                   )),
               Positioned(
-                  top: 160,
-                  left: 23,
+                  top: ScreenUtil.instance.setHeight(310),
+                  left: ScreenUtil.instance.setHeight(43),
                   child: AutoSizeText(
                     "Koordinator UMKM",
                     style: TextStyle(
                         fontSize: 12, fontFamily: "malgun", letterSpacing: 2),
                   )),
               Positioned(
-                top: 240,
-                left: 25,
-                right: 25,
+                top: ScreenUtil.instance.setHeight(500),
+                left: ScreenUtil.instance.setHeight(50),
+                right: ScreenUtil.instance.setHeight(50),
                 child: Container(
                   height: ScreenUtil.instance.setHeight(300),
                   width: ScreenUtil.instance.width,
@@ -72,7 +72,6 @@ class _LoginState extends State<Login> {
                       Container(
                         height: ScreenUtil.instance.setHeight(100),
                         child: TextField(
-                          autofocus: true,
 
                           focusNode: _focusNodeUsername,
                           controller: _controllerUsername,
@@ -119,9 +118,9 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Positioned(
-                left: 30,
-                right: 30,
-                bottom: ScreenUtil.instance.setHeight(1600),
+                left: ScreenUtil.instance.setHeight(50),
+                right: ScreenUtil.instance.setHeight(50),
+                bottom: ScreenUtil.instance.setHeight(1300),
                 child: RaisedButton(
                   onPressed: () =>Navigator.pushReplacement(context, TransisiWithDuration(widget: Dashboard(),duration: 200,typeTransisi: "Bawah")),
                   padding: EdgeInsets.symmetric(

@@ -57,6 +57,10 @@ flutter:
     - assets/gambar/user.png
     - assets/hijau.svg
     - assets/gambar/undraw_barcode.svg
+    - assets/gambar/ic_logout.png
+    - assets/gambar/ic_store.png
+    - assets/gambar/ic_token.png
+    - assets/gambar/ic_user_profile.png
     - assets/gambar/info.gif
 
     - assets/

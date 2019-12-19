@@ -6,18 +6,19 @@ class FotoProfil extends StatelessWidget {
   final String url_foto;
   final double width;
   final double height;
+  final double borderRadius;
 
   const FotoProfil(
       {Key key,
         @required this.url_foto,
         @required this.width,
-        @required this.height})
+        @required this.height, this.borderRadius})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25.0),
+      borderRadius: BorderRadius.circular(borderRadius),
       child: CachedNetworkImage(
         imageUrl: url_foto,
         height: height,
