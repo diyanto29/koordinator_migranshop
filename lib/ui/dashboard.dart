@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:koordinator_migranshop/componen/custom_navigator.dart';
 import 'package:koordinator_migranshop/componen/photo_profil.dart';
+import 'package:koordinator_migranshop/ui/list_toko.dart';
 
 import 'login.dart';
 
@@ -270,30 +271,33 @@ class _DashboardState extends State<Dashboard> {
                   child: GridView.count(
                     crossAxisCount: 2,
                     children: <Widget>[
-                      Container(
-                        margin:
-                            EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.grey[200], width: 2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/gambar/ic_store.png",
-                              width: 80,
-                            ),
-                            SizedBox(height: 10,),
-                            Flexible(
-                              child: AutoSizeText(
-                                "Data Toko Binaan",
-                                style: TextStyle(
-                                    fontSize: 16, fontFamily: "MalgunBold"),
+                      InkWell(
+                        onTap:()=>Navigator.push(context, TransisiWithDuration(widget: ListToko(),duration: 150,typeTransisi: "Bawah")),
+                        child: Container(
+                          margin:
+                              EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.grey[200], width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/gambar/ic_store.png",
+                                width: 80,
                               ),
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Data Toko Binaan",
+                                  style: TextStyle(
+                                      fontSize: 16, fontFamily: "MalgunBold"),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Container(
