@@ -81,12 +81,22 @@ class _DashboardState extends State<Dashboard> {
               )),
           Positioned(
             top: ScreenUtil.instance.setHeight(310),
-            left: ScreenUtil.instance.setHeight(200),
+            left: ScreenUtil.instance.setHeight(180),
             child: AutoSizeText(
-              "Diyanto",
+              "DIYANTO",
               style: TextStyle(
-                  fontFamily: "MalgunBold", fontSize: 20, letterSpacing: 2),
-              textScaleFactor: 1.5,
+                  fontFamily: "MalgunBold", fontSize: 16, letterSpacing: 0.4),
+              textScaleFactor: 1.2,
+            ),
+          ),
+          Positioned(
+            top: ScreenUtil.instance.setHeight(358),
+            left: ScreenUtil.instance.setHeight(180),
+            child: AutoSizeText(
+              "Koordinator",
+              style: TextStyle(
+                  fontSize: 12, letterSpacing: 0.4),
+              textScaleFactor: 1,
             ),
           ),
           Positioned(
@@ -112,116 +122,123 @@ class _DashboardState extends State<Dashboard> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30))),
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        elevation: 0.5,
-                        color: Colors.blue[500],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                            decoration: BoxDecoration(
+                      Flexible(
+                        child: Card(
+                          margin: EdgeInsets.all(10),
+                          elevation: 0.5,
+                          color: Colors.blue[500],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                              decoration: BoxDecoration(
 //                            border: Border.all(color: Colors.blue[300],width: 2,style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: ScreenUtil.instance.setHeight(200),
-                            width: ScreenUtil.instance.setHeight(150),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "1000",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontFamily: "MalgunBold",
-                                      color: Colors.white),
-                                )),
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "Point",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "Malgun",
-                                      color: Colors.white),
-                                ))
-                              ],
-                            )),
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: ScreenUtil.instance.setHeight(200),
+                              width: ScreenUtil.instance.setHeight(150),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "1000",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: "MalgunBold",
+                                        color: Colors.white),
+                                  )),
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "Point",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "Malgun",
+                                        color: Colors.white),
+                                  ))
+                                ],
+                              )),
+                        ),
                       ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        elevation: 0.5,
-                        color: Colors.blue[500],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                            decoration: BoxDecoration(
+                      Flexible(
+                        child: Card(
+                          margin: EdgeInsets.all(10),
+                          elevation: 0.5,
+                          color: Colors.blue[500],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                              decoration: BoxDecoration(
 //                            border: Border.all(color: Colors.blue[300],width: 2,style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: ScreenUtil.instance.setHeight(200),
-                            width: ScreenUtil.instance.setHeight(150),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "10",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontFamily: "MalgunBold",
-                                      color: Colors.white),
-                                )),
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "Token",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "Malgun",
-                                      color: Colors.white),
-                                ))
-                              ],
-                            )),
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: ScreenUtil.instance.setHeight(200),
+                              width: ScreenUtil.instance.setHeight(150),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "10",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: "MalgunBold",
+                                        color: Colors.white),
+                                  )),
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "Token",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "Malgun",
+                                        color: Colors.white),
+                                  ))
+                                ],
+                              )),
+                        ),
                       ),
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        elevation: 0.5,
-                        color: Colors.blue[500],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                            decoration: BoxDecoration(
+                      Flexible(
+                        child: Card(
+                          margin: EdgeInsets.all(10),
+                          elevation: 0.5,
+                          color: Colors.blue[500],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                              decoration: BoxDecoration(
 //                            border: Border.all(color: Colors.blue[300],width: 2,style: BorderStyle.solid),
-                                borderRadius: BorderRadius.circular(10)),
-                            height: ScreenUtil.instance.setHeight(200),
-                            width: ScreenUtil.instance.setHeight(150),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "200",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontFamily: "MalgunBold",
-                                      color: Colors.white),
-                                )),
-                                Flexible(
-                                    child: AutoSizeText(
-                                  "Toko Binaan",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "Malgun",
-                                      color: Colors.white),
-                                ))
-                              ],
-                            )),
+                                  borderRadius: BorderRadius.circular(10)),
+                              height: ScreenUtil.instance.setHeight(200),
+                              width: ScreenUtil.instance.setHeight(150),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "200",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontFamily: "MalgunBold",
+                                        color: Colors.white),
+                                  )),
+                                  Flexible(
+                                      child: AutoSizeText(
+                                    "Toko Binaan",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "Malgun",
+                                        color: Colors.white),
+                                  ))
+                                ],
+                              )),
+                        ),
                       ),
                     ],
                   ),
@@ -338,23 +355,26 @@ class _DashboardState extends State<Dashboard> {
                             border:
                                 Border.all(color: Colors.grey[200], width: 2),
                             borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/gambar/ic_logout.png",
-                              width: 80,
-                            ),
-                            SizedBox(height: 10,),
-                            Flexible(
-                              child: AutoSizeText(
-                                "Keluar",
-                                style: TextStyle(
-                                    fontSize: 16, fontFamily: "MalgunBold"),
+                        child: InkWell(
+                          onTap: logout,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/gambar/ic_logout.png",
+                                width: 80,
                               ),
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Keluar",
+                                  style: TextStyle(
+                                      fontSize: 16, fontFamily: "MalgunBold"),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
 

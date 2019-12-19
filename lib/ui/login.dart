@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Container(
-          height: ScreenUtil.instance.height,
+          height: ScreenUtil.mediaQueryData.size.height,
           child: Stack(
             children: <Widget>[
               Positioned(
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
               Positioned(
                 left: ScreenUtil.instance.setHeight(50),
                 right: ScreenUtil.instance.setHeight(50),
-                bottom: ScreenUtil.instance.setHeight(1300),
+                bottom: ScreenUtil.instance.setHeight(20),
                 child: RaisedButton(
                   onPressed: () =>Navigator.pushReplacement(context, TransisiWithDuration(widget: Dashboard(),duration: 200,typeTransisi: "Bawah")),
                   padding: EdgeInsets.symmetric(
