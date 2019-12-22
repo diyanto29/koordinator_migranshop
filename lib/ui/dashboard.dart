@@ -7,6 +7,7 @@ import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:koordinator_migranshop/componen/custom_navigator.dart';
 import 'package:koordinator_migranshop/componen/photo_profil.dart';
 import 'package:koordinator_migranshop/ui/list_toko.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
 
@@ -28,6 +29,8 @@ class _DashboardState extends State<Dashboard> {
         desc: 'Apakah Anda Yakin ingin Keluar ?',
         btnCancelOnPress: () {},
         btnOkOnPress: () async {
+          SharedPreferences prefs=await SharedPreferences.getInstance();
+          prefs.setBool("isLogin", false);
           Navigator.pushReplacement(
               context,
               TransisiWithDuration(
