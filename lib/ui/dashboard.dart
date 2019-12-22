@@ -46,8 +46,8 @@ class _DashboardState extends State<Dashboard> {
               top: ScreenUtil.instance.setHeight(0),
               right: 0,
               child: Container(
-                height: ScreenUtil.instance.setHeight(350),
-                width: ScreenUtil.instance.setHeight(300),
+                height: ScreenUtil.instance.setHeight(250),
+                width: ScreenUtil.instance.setHeight(250),
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(135, 206, 250, 500),
                     borderRadius: BorderRadius.only(
@@ -56,6 +56,7 @@ class _DashboardState extends State<Dashboard> {
                         topLeft: Radius.circular(40))),
                 child: Center(
                   child: Container(
+                    alignment: Alignment.center,
                     height: ScreenUtil.instance.setHeight(100),
                     width: ScreenUtil.instance.setHeight(100),
                     decoration: BoxDecoration(
@@ -65,14 +66,14 @@ class _DashboardState extends State<Dashboard> {
                       onPressed: () {},
                       icon: Center(
                         child: Icon(Icons.notifications_active,
-                            size: 30, color: Colors.blueAccent),
+                            size: 20, color: Colors.blueAccent),
                       ),
                     ),
                   ),
                 ),
               )),
           Positioned(
-              top: ScreenUtil.instance.setHeight(300),
+              top: ScreenUtil.instance.setHeight(200),
               left: ScreenUtil.instance.setHeight(50),
               child: FotoProfil(
                 url_foto: url_profil,
@@ -81,8 +82,8 @@ class _DashboardState extends State<Dashboard> {
                 borderRadius: 60,
               )),
           Positioned(
-            top: ScreenUtil.instance.setHeight(310),
-            left: ScreenUtil.instance.setHeight(180),
+            top: ScreenUtil.instance.setHeight(220),
+            left: ScreenUtil.instance.setHeight(200),
             child: AutoSizeText(
               "DIYANTO",
               style: TextStyle(
@@ -91,8 +92,8 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           Positioned(
-            top: ScreenUtil.instance.setHeight(358),
-            left: ScreenUtil.instance.setHeight(180),
+            top: ScreenUtil.instance.setHeight(270),
+            left: ScreenUtil.instance.setHeight(200),
             child: AutoSizeText(
               "Koordinator",
               style: TextStyle(
@@ -101,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           Positioned(
-              top: ScreenUtil.instance.setHeight(425),
+              top: ScreenUtil.instance.setHeight(360),
               left: ScreenUtil.instance.setHeight(-10),
               right: ScreenUtil.instance.setHeight(-10),
               child: Card(
@@ -232,6 +233,7 @@ class _DashboardState extends State<Dashboard> {
                                   Flexible(
                                       child: AutoSizeText(
                                     "Toko Binaan",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: "Malgun",
@@ -246,7 +248,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
               )),
           Positioned(
-              top: ScreenUtil.instance.setHeight(650),
+              top: ScreenUtil.instance.setHeight(580),
               left: ScreenUtil.instance.setHeight(-10),
               right: ScreenUtil.instance.setHeight(-10),
               bottom: ScreenUtil.instance.setHeight(-10),
@@ -272,7 +274,7 @@ class _DashboardState extends State<Dashboard> {
                     crossAxisCount: 2,
                     children: <Widget>[
                       InkWell(
-                        onTap:()=>Navigator.push(context, TransisiWithDuration(widget: ListToko(),duration: 150,typeTransisi: "Bawah")),
+                        onTap:()=>Navigator.push(context, TransisiWithDuration(widget: ListToko(),duration: 300,typeTransisi: "Bawah")),
                         child: Container(
                           margin:
                               EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
