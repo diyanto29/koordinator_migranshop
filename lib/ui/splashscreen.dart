@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:koordinator_migranshop/componen/custom_navigator.dart';
 import 'package:koordinator_migranshop/session/shareprefrences.dart';
@@ -12,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
 
-  void getSession()async{
+  Future<void> getSession()async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     bool isLogin=prefs.getBool("isLogin");
     if(isLogin==true){
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2),(){
+    Timer(Duration(seconds: 2),(){
       getSession();
     });
     super.initState();

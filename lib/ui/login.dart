@@ -29,24 +29,22 @@ class _LoginState extends State<Login> {
 
   final formKey = GlobalKey<FormState>();
 
-
   void _onLoading() {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Container(
-            height: 50,
-            width: 50,
-            child: SpinKitFadingCube(
-              size: 50,
-              color: Colors.blueAccent,
-            ),
-          )
-        );
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: Container(
+              height: 50,
+              width: 50,
+              child: SpinKitFadingCube(
+                size: 50,
+                color: Colors.blueAccent,
+              ),
+            ));
       },
     );
   }
@@ -58,7 +56,7 @@ class _LoginState extends State<Login> {
         _onLoading();
         Response response;
         String url = Server.login;
-        print(_controllerUsername.text);
+        print(_controllerPassword.text);
         response = await _dio.post(url, data: {
           "email": "${_controllerUsername.text}",
           "password": "${_controllerPassword.text}"
@@ -66,33 +64,48 @@ class _LoginState extends State<Login> {
         if (response.data['code'] == 200) {
           Navigator.pop(context);
           var message = response.data['message'];
-
           _prefs.savePrefrences("isLogin", true);
           _prefs.savePrefrences("token", response.data['token_jwt']);
-          _prefs.savePrefrences("kd_koordinator",
-              response.data['kordinator'][0]['kd_koordinator']);
-          _prefs.savePrefrences("KTP", response.data['kordinator'][0]['KTP']);
+          _prefs.savePrefrences("kode_koordinator",
+              response.data['kordinator'][0]['kode_kordinator']);
           _prefs.savePrefrences(
-              "jenis_kelamin", response.data['kordinator'][0]['jenis_kelamin']);
+              "ktp", response.data['kordinator'][0]['data']['KTP']);
           _prefs.savePrefrences(
-              "email", response.data['kordinator'][0]['emai']);
-//       _prefs.savePrefrences("kota", response.data['kordinator'][0]['kd_koordinator']);
+              "jenis_kelamin", response.data['kordinator'][0]['kelamin']);
           _prefs.savePrefrences(
-              "detail_alamat", response.data['kordinator'][0]['detail_alamat']);
+              "email", response.data['kordinator'][0]['data']['email']);
+          _prefs.savePrefrences(
+              "type", response.data['kordinator'][0]['data']['type']);
+          _prefs.savePrefrences(
+              "city_name", response.data['kordinator'][0]['data']['city_name']);
+          _prefs.savePrefrences("postal_code",
+              response.data['kordinator'][0]['data']['postal_code']);
+          _prefs.savePrefrences(
+              "province", response.data['kordinator'][0]['data']['province']);
+          _prefs.savePrefrences(
+              "poin", response.data['kordinator'][0]['data']['poin']);
+          _prefs.savePrefrences("detail_alamat",
+              response.data['kordinator'][0]['data']['detail_alamat']);
           _prefs.savePrefrences("foto_koordinator",
-              response.data['kordinator'][0]['foto_koordinator']);
-          print(response.data['kordinator'][0]['KTP'].toString());
+              response.data['kordinator'][0]['data']['foto_koordinator']);
+          _prefs.savePrefrences("nama_lengkap",
+              response.data['kordinator'][0]['data']['nama_lengkap']);
+          _prefs.savePrefrences(
+              "nomer_hp", response.data['kordinator'][0]['data']['nomer_hp']);
+
+
           Navigator.pushReplacement(
               context,
               TransisiWithDuration(
                   widget: Dashboard(), duration: 150, typeTransisi: "Bawah"));
+
         } else {
           Navigator.pop(context);
           Flushbar(
             animationDuration: Duration(seconds: 1),
             backgroundColor: Colors.red,
             duration: Duration(seconds: 3),
-            messageText: Text(response.data['message']),
+            messageText: Text(response.data['error']['message'],style: TextStyle(color: Colors.white,fontFamily: "MalgunBold"),),
             flushbarPosition: FlushbarPosition.TOP,
             flushbarStyle: FlushbarStyle.FLOATING,
             icon: Icon(
@@ -113,7 +126,10 @@ class _LoginState extends State<Login> {
           animationDuration: Duration(seconds: 1),
           backgroundColor: Colors.red,
           duration: Duration(seconds: 3),
-          messageText: Text("Ada masalah pada jaringan!",style: TextStyle(color: Colors.white),),
+          messageText: Text(
+            "Ada masalah pada jaringan!",
+            style: TextStyle(color: Colors.white),
+          ),
           flushbarPosition: FlushbarPosition.TOP,
           flushbarStyle: FlushbarStyle.GROUNDED,
           icon: Icon(
@@ -181,11 +197,12 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: <Widget>[
                         Container(
-
                           child: TextFormField(
                             focusNode: _focusNodeUsername,
                             controller: _controllerUsername,
-                            validator: (value)=> value.isEmpty ? 'Nama Pengguna/Email harus diisi': null,
+                            validator: (value) => value.isEmpty
+                                ? 'Nama Pengguna/Email harus diisi'
+                                : null,
                             onFieldSubmitted: (submit) {
                               _focusNodeUsername.unfocus();
                               FocusScope.of(context)
@@ -204,8 +221,9 @@ class _LoginState extends State<Login> {
                           height: ScreenUtil.instance.setHeight(150),
                           child: TextFormField(
                             obscureText: isVisibe,
-
-                            validator: (value)=>value.isEmpty ? 'Password harus diisi...': null,
+                            validator: (value) => value.isEmpty
+                                ? 'Password harus diisi...'
+                                : null,
                             focusNode: _focusNodePassword,
                             textInputAction: TextInputAction.done,
                             controller: _controllerPassword,

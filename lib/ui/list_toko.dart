@@ -27,20 +27,113 @@ class _ListTokoState extends State<ListToko> {
                       borderRadius: BorderRadius.circular(5)),
                   child: Container(
                     height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Flexible(
-                            child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: AutoSizeText(
-                            "Dodol Mangga Harum manis",
-                            overflow: TextOverflow.visible,
-                            style: TextStyle(
-                                fontSize: 14, fontFamily: "MalgunBold"),
-                          ),
-                        )),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                                child: Padding(
+                              padding: const EdgeInsets.only(left: 15,top: 8),
+                              child: AutoSizeText(
+                                "Migranshop",
+                                overflow: TextOverflow.visible,
+                                style: TextStyle(
+                                    fontSize: 20, fontFamily: "MalgunBold"),
+                              ),
+                            )),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Flexible(
+                                child: Padding(
+                              padding: const EdgeInsets.only(left: 15,top: 8),
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                width: ScreenUtil.instance.setHeight(100),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.blueAccent
+                                ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(IcoFontIcons.foodCart,size: 15,color: Colors.white,),
+                                    Flexible(
+                                      child: AutoSizeText(
+                                        "12",
+                                        overflow: TextOverflow.visible,
+                                        style: TextStyle(
+                                            fontSize: 15, fontFamily: "MalgunBold",color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                            Flexible(
+                                child: Padding(
+                              padding: const EdgeInsets.only(left: 4,top: 8),
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                width: ScreenUtil.instance.setHeight(100),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.redAccent
+                                ),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(IcoFontIcons.foodBasket,size: 15,color: Colors.white,),
+                                    Flexible(
+                                      child: AutoSizeText(
+                                        "10",
+                                        overflow: TextOverflow.visible,
+                                        style: TextStyle(
+                                            fontSize: 15, fontFamily: "MalgunBold",color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                            Flexible(
+                                child: Padding(
+                              padding: const EdgeInsets.only(left: 4,top: 8),
+                              child: Container(
+                                width: ScreenUtil.mediaQueryData.size.width,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Colors.lightGreen
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(IcoFontIcons.streetView,size: 15,color: Colors.white,),
+                                    Flexible(
+                                      child: AutoSizeText(
+                                        "Desa  Kenanga",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 15, fontFamily: "MalgunBold",color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                          ],
+                        ),
                       ],
                     ),
                   ),

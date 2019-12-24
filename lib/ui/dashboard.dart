@@ -1,12 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:koordinator_migranshop/componen/custom_navigator.dart';
 import 'package:koordinator_migranshop/componen/photo_profil.dart';
+import 'package:koordinator_migranshop/ui/list_token.dart';
 import 'package:koordinator_migranshop/ui/list_toko.dart';
+import 'package:koordinator_migranshop/ui/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
@@ -17,8 +21,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  var nama="";
+
   String url_profil =
       "https://image.freepik.com/free-vector/gamer-mascot-geek-boy-esports-logo-avatar-with-headphones-glasses-cartoon-character_8169-228.jpg";
+
+  int poin=0;
+
 
   void logout() async {
     AwesomeDialog(
@@ -38,10 +47,47 @@ class _DashboardState extends State<Dashboard> {
         }).show();
   }
 
+  void showSnackBar()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    Flushbar(
+      animationDuration: Duration(seconds: 1),
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 3),
+      messageText: Text("Selamat Datang, "+  prefs.getString("nama_lengkap"),style: TextStyle(color: Colors.white,fontFamily: "MalgunBold"),),
+      flushbarPosition: FlushbarPosition.TOP,
+      flushbarStyle: FlushbarStyle.FLOATING,
+      icon: Icon(
+        IcoFontIcons.warningAlt,
+        color: Colors.white,
+      ),
+      isDismissible: false,
+    )..show(context);
+  }
+
+  void getSesion()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    setState(() {
+      nama=prefs.getString("nama_lengkap");
+      if(prefs.getString("foto_koordinator").isNotEmpty){
+        url_profil=prefs.getString("foto_koordinator");
+      }
+      poin=int.parse(prefs.get("poin"));
+    });
+  }
+  @override
+  void initState() {
+    Future.delayed(Duration.zero,(){
+      showSnackBar();
+      getSesion();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    print(Device.screenHeight);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -88,7 +134,7 @@ class _DashboardState extends State<Dashboard> {
             top: ScreenUtil.instance.setHeight(220),
             left: ScreenUtil.instance.setHeight(200),
             child: AutoSizeText(
-              "DIYANTO",
+              "$nama",
               style: TextStyle(
                   fontFamily: "MalgunBold", fontSize: 16, letterSpacing: 0.4),
               textScaleFactor: 1.2,
@@ -151,7 +197,7 @@ class _DashboardState extends State<Dashboard> {
                                 children: <Widget>[
                                   Flexible(
                                       child: AutoSizeText(
-                                    "1000",
+                                    "$poin",
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontFamily: "MalgunBold",
@@ -305,56 +351,62 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.grey[200], width: 2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/gambar/ic_token.png",
-                              width: 80,
-                            ),
-                            SizedBox(height: 10,),
-                            Flexible(
-                              child: AutoSizeText(
-                                "Data Token",
-                                style: TextStyle(
-                                    fontSize: 16, fontFamily: "MalgunBold"),
+                      InkWell(
+                        onTap: ()=>Navigator.push(context, TransisiWithDuration(widget: ListToken(),duration: 300,typeTransisi: "Bawah")),
+                        child: Container(
+                          margin:
+                              EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.grey[200], width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/gambar/ic_token.png",
+                                width: 80,
                               ),
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Data Token",
+                                  style: TextStyle(
+                                      fontSize: 16, fontFamily: "MalgunBold"),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.grey[200], width: 2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/gambar/ic_user_profile.png",
-                              width: 80,
-                            ),
-                            SizedBox(height: 10,),
-                            Flexible(
-                              child: AutoSizeText(
-                                "Profil Pengguna",
-                                style: TextStyle(
-                                    fontSize: 16, fontFamily: "MalgunBold"),
+                      InkWell(
+                        onTap: ()=>Navigator.push(context, TransisiWithDuration(widget: Profile(),duration: 300,typeTransisi: "Bawah")),
+                        child: Container(
+                          margin:
+                              EdgeInsets.all(ScreenUtil.instance.setHeight(20)),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.grey[200], width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/gambar/ic_user_profile.png",
+                                width: 80,
                               ),
-                            )
-                          ],
+                              SizedBox(height: 10,),
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Profil Pengguna",
+                                  style: TextStyle(
+                                      fontSize: 16, fontFamily: "MalgunBold"),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Container(
