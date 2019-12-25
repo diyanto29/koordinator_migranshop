@@ -1,13 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:koordinator_migranshop/componen/custom_navigator.dart';
 import 'package:koordinator_migranshop/componen/photo_profil.dart';
+import 'package:koordinator_migranshop/componen/server.dart';
 import 'package:koordinator_migranshop/ui/list_token.dart';
 import 'package:koordinator_migranshop/ui/list_toko.dart';
 import 'package:koordinator_migranshop/ui/profile.dart';
@@ -22,12 +25,56 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   var nama="";
+  int totalToken=0;
+  int totalTokoBinaan=0;
 
   String url_profil =
       "https://image.freepik.com/free-vector/gamer-mascot-geek-boy-esports-logo-avatar-with-headphones-glasses-cartoon-character_8169-228.jpg";
 
   int poin=0;
 
+  getHeaders() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, String> header = {};
+    header.clear();
+    header = {
+      "Authorization": "Bearer " + prefs.get('token'),
+      "api": "1.0.0",
+    };
+    return header;
+  }
+
+  Future<int> getTotalToken()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    var kode_koordinator=prefs.get("kode_koordinator");
+    Response response;
+    String url=Server.total_token+"/$kode_koordinator";
+    Dio dio=new Dio(new BaseOptions(
+      headers: await getHeaders()
+    ));
+    response=await dio.get(url);
+    setState(() {
+      totalToken=response.data['total_token'];
+    });
+    return totalToken;
+  }
+  Future<int> getTotalTokobinaan()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    var kode_koordinator=prefs.get("kode_koordinator");
+    Response response;
+    String url=Server.total_toko_binaan+"/$kode_koordinator";
+    Dio dio=new Dio(new BaseOptions(
+        headers: await getHeaders()
+    ));
+    response=await dio.get(url);
+    if(response.data['pesan']['code']==200){
+      setState(() {
+        totalTokoBinaan=response.data['total_tokobinaan'];
+      });
+    }
+    print(totalTokoBinaan);
+    return totalTokoBinaan;
+  }
 
   void logout() async {
     AwesomeDialog(
@@ -79,6 +126,7 @@ class _DashboardState extends State<Dashboard> {
     Future.delayed(Duration.zero,(){
       showSnackBar();
       getSesion();
+      getTotalTokobinaan();
     });
     super.initState();
   }
@@ -87,7 +135,6 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
-    print(Device.screenHeight);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -229,27 +276,41 @@ class _DashboardState extends State<Dashboard> {
                                   borderRadius: BorderRadius.circular(10)),
                               height: ScreenUtil.instance.setHeight(200),
                               width: ScreenUtil.instance.setHeight(150),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Flexible(
-                                      child: AutoSizeText(
-                                    "10",
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontFamily: "MalgunBold",
-                                        color: Colors.white),
-                                  )),
-                                  Flexible(
-                                      child: AutoSizeText(
-                                    "Token",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: "Malgun",
-                                        color: Colors.white),
-                                  ))
-                                ],
+                              child: FutureBuilder(
+                                future: getTotalToken(),
+                                builder: ((context,snapshot){
+
+                                  if(snapshot.hasData){
+                                    return Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Flexible(
+                                            child: AutoSizeText(
+                                              snapshot.data.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontFamily: "MalgunBold",
+                                                  color: Colors.white),
+                                            )),
+                                        Flexible(
+                                            child: AutoSizeText(
+                                              "Token",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: "Malgun",
+                                                  color: Colors.white),
+                                            ))
+                                      ],
+                                    );
+                                  }
+                                  return Center(
+                                    child: SpinKitCircle(
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                }),
                               )),
                         ),
                       ),
@@ -273,21 +334,20 @@ class _DashboardState extends State<Dashboard> {
                                 children: <Widget>[
                                   Flexible(
                                       child: AutoSizeText(
-                                    "200",
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontFamily: "MalgunBold",
-                                        color: Colors.white),
-                                  )),
+                                        totalTokoBinaan.toString(),
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontFamily: "MalgunBold",
+                                            color: Colors.white),
+                                      )),
                                   Flexible(
                                       child: AutoSizeText(
-                                    "Toko Binaan",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: "Malgun",
-                                        color: Colors.white),
-                                  ))
+                                        "Toko Binaan  ",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: "Malgun",
+                                            color: Colors.white),
+                                      ))
                                 ],
                               )),
                         ),
