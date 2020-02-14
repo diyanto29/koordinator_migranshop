@@ -1,4 +1,4 @@
-#Tue Dec 24 14:28:03 WIB 2019
-base.0=/home/diyanto/AndroidStudioProjects/koordinator_migranshop/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Fri Feb 14 10:51:13 ICT 2020
+base.0=E\:\\DATA POLINDRA\\Magang\\koordinator_migranshop\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

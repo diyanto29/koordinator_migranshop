@@ -9,7 +9,7 @@ import 'package:koordinator_migranshop/componen/list_detail_toko.dart';
 import 'package:koordinator_migranshop/componen/server.dart';
 import 'package:koordinator_migranshop/model/model_list_toko.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:swipedetector/swipedetector.dart';
+
 
 class ListToko extends StatefulWidget {
   @override
@@ -130,15 +130,7 @@ class _ListTokoState extends State<ListToko> {
   Widget _bottomSheetBuilder(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
 
-    return SwipeDetector(
-      onSwipeDown:  () {
-        _controllerBottomSheet.close();
-        setState(() {
-          bottomSheet = !bottomSheet;
-          isData=!isData;
-        });
-      },
-      child: Material(
+    return  Material(
         color: Colors.white,
         elevation: 20,
         shadowColor: Colors.red,
@@ -245,7 +237,7 @@ class _ListTokoState extends State<ListToko> {
                 color: Colors.blueAccent,
               ),
             )),
-      ),
+
     );
   }
 
