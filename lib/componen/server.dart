@@ -6,6 +6,7 @@ class Server{
   static final String total_token=baseURL+"/token";
   static final String tambah_token=baseURL+"/tambahtoken";
   static final String total_toko_binaan=baseURL+"/tokobinaan";
+  static final String list_token=baseURL+"/gettoken";
 
 
 }

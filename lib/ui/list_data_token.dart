@@ -1,11 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dio/dio.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
+import 'package:koordinator_migranshop/componen/server.dart';
 import 'package:koordinator_migranshop/model/model_token.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ListDataToken extends StatefulWidget {
   final String kategori;
@@ -22,9 +26,74 @@ class _ListDataTokenState extends State<ListDataToken> {
   List<ModelToken> _listToken=[];
   List<ModelToken> _listTokenkategori=[];
   List<ModelToken> _searchResult=[];
+  Dio dio;
 
   _ListDataTokenState(this.kategori, this.cari);
 
+  getHeaders() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, String> header = {};
+    header.clear();
+    header = {
+      "Authorization": "Bearer " + prefs.get('token'),
+      "Cache-Control": "no-cache",
+      "api": "1.0.0",
+    };
+    return header;
+  }
+
+
+  Future<void> getToken()async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    var token=prefs.get("token");
+    var kode=prefs.get("kode_koordinator");
+    dio=new Dio(new BaseOptions(
+        headers: await getHeaders()
+    ));
+    Response response;
+    String url=Server.list_token+"/$kode";
+    response=await dio.get(url);
+      if(response.data['pesan']['code']==200){
+        print("oke");
+        setState(() {
+          List listToken=response.data['token'];
+          for(int i=0;i<listToken.length;i++){
+            if(listToken[i]['status'].toString()=="1"){
+              _listToken.add(new ModelToken(
+                  id_token:listToken[i]['id_token'].toString(),
+                  status: "Active",
+                  token: listToken[i]['token'],
+              ));
+            }else{
+              _listToken.add(new ModelToken(
+                  id_token:listToken[i]['id_token'].toString(),
+                  status: "Deactive",
+                  token: listToken[i]['token']
+              ));
+            }
+          }
+
+          _listTokenkategori.clear();
+          for(int i=0;i<_listToken.length;i++){
+            print(_listToken[i].status);
+            if(_listToken[i].status==kategori){
+              print("Ada");
+              setState(() {
+                _listTokenkategori.add(new ModelToken(
+                  id_token: _listToken[i].id_token,
+                  token: _listToken[i].token,
+                  status: _listToken[i].status,
+                ));
+              });
+            }
+            print(cari);
+          }
+        });
+
+      }
+
+
+  }
 
   void addList(){
     _listToken.add(new ModelToken(
@@ -97,21 +166,8 @@ class _ListDataTokenState extends State<ListDataToken> {
   @override
   void initState() {
     _listToken.clear();
-    addList();
-    _listTokenkategori.clear();
-   for(int i=0;i<_listToken.length;i++){
+    getToken();
 
-     if(_listToken[i].status==kategori){
-       setState(() {
-         _listTokenkategori.add(new ModelToken(
-           id_token: _listToken[i].id_token,
-           token: _listToken[i].token,
-           status: _listToken[i].status,
-         ));
-       });
-     }
-     print(cari);
-   }
     print("kategori $kategori");
     super.initState();
   }
@@ -119,7 +175,7 @@ class _ListDataTokenState extends State<ListDataToken> {
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: ListView.builder(
+      child: _listToken.length<=0 ? Center(child: CircularProgressIndicator(),):ListView.builder(
         itemCount:kategori!="Semua"  ? _listTokenkategori.length : _listToken.length,
         itemBuilder: (BuildContext context, int index) {
           return AnimationConfiguration.staggeredList(

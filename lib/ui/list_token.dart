@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:dio/dio.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,8 @@ class _ListTokenState extends State<ListToken>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> keyScaffold=new GlobalKey<ScaffoldState>();
   StreamController<void> cariToken = StreamController<bool>.broadcast();
+  Dio dio;
+  List<ModelToken> listToken=List<ModelToken>();
 
   final List<Tab> tabs = <Tab>[
     new Tab(text: "Semua"),
@@ -123,6 +126,8 @@ class _ListTokenState extends State<ListToken>
 
     return true;
   }
+
+
 
 
 
