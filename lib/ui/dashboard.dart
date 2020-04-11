@@ -138,36 +138,37 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Positioned(
-              top: ScreenUtil.instance.setHeight(0),
-              right: 0,
-              child: Container(
-                height: ScreenUtil.instance.setHeight(250),
-                width: ScreenUtil.instance.setHeight(250),
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(135, 206, 250, 500),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(100),
-                        bottomRight: Radius.circular(-30),
-                        topLeft: Radius.circular(40))),
-                child: Center(
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: ScreenUtil.instance.setHeight(100),
-                    width: ScreenUtil.instance.setHeight(100),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        border: Border.all(color: Colors.blueAccent, width: 2)),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Center(
-                        child: Icon(Icons.notifications_active,
-                            size: 20, color: Colors.blueAccent),
-                      ),
-                    ),
-                  ),
-                ),
-              )),
+//          Positioned(
+//              top: ScreenUtil.instance.setHeight(0),
+//              right: 0,
+//              child: Container(
+//                height: ScreenUtil.instance.setHeight(250),
+//                width: ScreenUtil.instance.setHeight(250),
+//                decoration: BoxDecoration(
+//                    color: Color.fromRGBO(135, 206, 250, 500),
+//                    borderRadius: BorderRadius.only(
+//                        bottomLeft: Radius.circular(100),
+//                        bottomRight: Radius.circular(-30),
+//                        topLeft: Radius.circular(40))),
+//                child: Center(
+//                  child: Container(
+//                    alignment: Alignment.center,
+//                    height: ScreenUtil.instance.setHeight(100),
+//                    width: ScreenUtil.instance.setHeight(100),
+//                    decoration: BoxDecoration(
+//                        borderRadius: BorderRadius.circular(40),
+//                        border: Border.all(color: Colors.blueAccent, width: 2)),
+////                    child: IconButton(
+////                      onPressed: () {},
+////                      icon: Center(
+////                        child: Icon(Icons.notifications_active,
+////                            size: 20, color: Colors.blueAccent),
+////                      ),
+////                    ),
+//                  child: Container(),
+//                  ),
+//                ),
+//              )),
           Positioned(
               top: ScreenUtil.instance.setHeight(200),
               left: ScreenUtil.instance.setHeight(50),

@@ -19,9 +19,11 @@ class ListToko extends StatefulWidget {
 class _ListTokoState extends State<ListToko> {
   Dio dio;
   List<ModelListToko> _listToko=[];
+  double scroll=0.0;
 
   GlobalKey<ScaffoldState> scaffoldKey=GlobalKey<ScaffoldState>();
   PersistentBottomSheetController _controllerBottomSheet;
+  ScrollController controller=ScrollController();
 
 
   String noKtp,namaLengkap,jenisKelamin,alamatPemilik,nomorTelepon,email,noRek,namaNasabah,jenisBank,namaToko,deskripsiToko,alamatToko;
@@ -130,114 +132,132 @@ class _ListTokoState extends State<ListToko> {
   Widget _bottomSheetBuilder(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
 
-    return  Material(
-        color: Colors.white,
-        elevation: 20,
-        shadowColor: Colors.red,
-        animationDuration: Duration(seconds: 60),
-        type: MaterialType.card,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-        child: Container(
-            height: ScreenUtil.instance.setHeight(1000),
-            width: ScreenUtil.screenWidth,
-            margin: EdgeInsets.only(bottom: ScreenUtil.instance.setHeight(40)),
-            child: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child:isData ?  ListView(
-                physics: ClampingScrollPhysics(),
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                        width: 50,
-                        child: Divider(thickness: 4,)),
+    return  NotificationListener(
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        primary: true,
+        reverse: true,
+        child: Material(
+            color: Colors.white,
+            elevation: 20,
+            shadowColor: Colors.red,
+            animationDuration: Duration(seconds: 60),
+            type: MaterialType.card,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+            child: Container(
+                height: ScreenUtil.instance.setHeight(1000),
+                width: ScreenUtil.screenWidth,
+                margin: EdgeInsets.only(bottom: ScreenUtil.instance.setHeight(40)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child:isData ?  ListView(
+                    controller: controller,
+                    physics: ClampingScrollPhysics(),
+                    children: <Widget>[
+                      Center(
+                        child: Container(
+                            width: 50,
+                            child: Divider(thickness: 4,)),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40)),
+                        child: AutoSizeText("Info Pemilik Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
+                      ListDetailToko(
+                        title: "Nomor KTP",
+                        content: "$noKtp",
+                        icon: IcoFontIcons.user,
+                        colorIcon: Colors.amber,
+                      ),
+                      ListDetailToko(
+                        title: "Nama Lengkap",
+                        content: "$namaLengkap",
+                        icon: IcoFontIcons.user,
+                        colorIcon: Colors.amberAccent,
+                      ),
+                      ListDetailToko(
+                        title: "Jenis Kelamin",
+                        content: "$jenisKelamin",
+                        icon: IcoFontIcons.groupStudents,
+                        colorIcon: Colors.blue,
+                      ),
+                      ListDetailToko(
+                        title: "Alamat",
+                        content: "$alamatPemilik",
+                        icon: Icons.streetview,
+                        colorIcon: Colors.blueAccent,
+                      ),
+                      ListDetailToko(
+                        title: "Nomor Telephon",
+                        content: "$nomorTelepon",
+                        icon: IcoFontIcons.phoneCircle,
+                        colorIcon: Colors.lightBlue,
+                      ),
+                      ListDetailToko(
+                        title: "Email",
+                        content: "$email",
+                        icon: IcoFontIcons.user,
+                        colorIcon: Colors.lightBlueAccent,
+                      ),
+                      Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40),top: ScreenUtil.instance.setHeight(30)),
+                        child: AutoSizeText("Info Rekening Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
+                      ListDetailToko(
+                        title: "Nomor Rekening",
+                        content: "$noRek",
+                        icon: IcoFontIcons.bank,
+                        colorIcon: Colors.red,
+                      ),
+                      ListDetailToko(
+                        title: "Nama Nasabah",
+                        content: "$namaNasabah",
+                        icon: IcoFontIcons.card,
+                        colorIcon: Colors.redAccent,
+                      ),
+                      ListDetailToko(
+                        title: "Jenis Bank",
+                        content: "$jenisBank",
+                        icon: IcoFontIcons.bankTransfer,
+                        colorIcon: Colors.red[800],
+                      ),
+                      Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40),top: ScreenUtil.instance.setHeight(30)),
+                        child: AutoSizeText("Info Detail Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
+                      ListDetailToko(
+                        title: "Nama Toko",
+                        content: "$namaToko",
+                        icon: IcoFontIcons.stumbleupon,
+                        colorIcon: Colors.green,
+                      ),
+                      ListDetailToko(
+                        title: "Deskripsi Toko",
+                        content: "$deskripsiToko",
+                        icon: IcoFontIcons.pen,
+                        colorIcon: Colors.greenAccent,
+                      ),
+                      ListDetailToko(
+                        title: "Alamat Toko",
+                        content: "$alamatToko",
+                        icon: IcoFontIcons.streetView,
+                        colorIcon: Colors.green,
+                      ),
+                    ],
+                  ) : SpinKitCubeGrid(
+                    size: 40,
+                    color: Colors.blueAccent,
                   ),
-                  Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40)),
-                    child: AutoSizeText("Info Pemilik Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
-                  ListDetailToko(
-                    title: "Nomor KTP",
-                    content: "$noKtp",
-                    icon: IcoFontIcons.user,
-                    colorIcon: Colors.amber,
-                  ),
-                  ListDetailToko(
-                    title: "Nama Lengkap",
-                    content: "$namaLengkap",
-                    icon: IcoFontIcons.user,
-                    colorIcon: Colors.amberAccent,
-                  ),
-                  ListDetailToko(
-                    title: "Jenis Kelamin",
-                    content: "$jenisKelamin",
-                    icon: IcoFontIcons.groupStudents,
-                    colorIcon: Colors.blue,
-                  ),
-                  ListDetailToko(
-                    title: "Alamat",
-                    content: "$alamatPemilik",
-                    icon: Icons.streetview,
-                    colorIcon: Colors.blueAccent,
-                  ),
-                  ListDetailToko(
-                    title: "Nomor Telephon",
-                    content: "$nomorTelepon",
-                    icon: IcoFontIcons.phoneCircle,
-                    colorIcon: Colors.lightBlue,
-                  ),
-                  ListDetailToko(
-                    title: "Email",
-                    content: "$email",
-                    icon: IcoFontIcons.user,
-                    colorIcon: Colors.lightBlueAccent,
-                  ),
-                  Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40),top: ScreenUtil.instance.setHeight(30)),
-                    child: AutoSizeText("Info Rekening Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
-                  ListDetailToko(
-                    title: "Nomor Rekening",
-                    content: "$noRek",
-                    icon: IcoFontIcons.bank,
-                    colorIcon: Colors.red,
-                  ),
-                  ListDetailToko(
-                    title: "Nama Nasabah",
-                    content: "$namaNasabah",
-                    icon: IcoFontIcons.card,
-                    colorIcon: Colors.redAccent,
-                  ),
-                  ListDetailToko(
-                    title: "Jenis Bank",
-                    content: "$jenisBank",
-                    icon: IcoFontIcons.bankTransfer,
-                    colorIcon: Colors.red[800],
-                  ),
-                  Padding(padding: EdgeInsets.only(left: ScreenUtil.instance.setHeight(40),top: ScreenUtil.instance.setHeight(30)),
-                    child: AutoSizeText("Info Detail Toko",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),),
-                  ListDetailToko(
-                    title: "Nama Toko",
-                    content: "$namaToko",
-                    icon: IcoFontIcons.stumbleupon,
-                    colorIcon: Colors.green,
-                  ),
-                  ListDetailToko(
-                    title: "Deskripsi Toko",
-                    content: "$deskripsiToko",
-                    icon: IcoFontIcons.pen,
-                    colorIcon: Colors.greenAccent,
-                  ),
-                  ListDetailToko(
-                    title: "Alamat Toko",
-                    content: "$alamatToko",
-                    icon: IcoFontIcons.streetView,
-                    colorIcon: Colors.green,
-                  ),
-                ],
-              ) : SpinKitCubeGrid(
-                size: 40,
-                color: Colors.blueAccent,
-              ),
-            )),
+                )),
 
+        ),
+      ),
+      onNotification: (t){
+        if (t is ScrollEndNotification) {
+          double maxScroll = controller.position.minScrollExtent;
+          double currentScroll = controller.position.pixels;
+          if(currentScroll==maxScroll){
+
+            back();
+          }
+        }
+      },
     );
   }
 
